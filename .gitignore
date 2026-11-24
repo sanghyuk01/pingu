@@ -1,0 +1,32 @@
+# Runtime data (job definitions and local state)
+/data/
+
+# Go binaries and test artifacts
+/bin/
+/pingu
+/pingu.exe
+*.test
+*.test.exe
+/coverage.out
+/coverage.html
+/coverage/
+*.prof
+
+# Local environment and secrets; keep the documented template
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+._*
+Thumbs.db

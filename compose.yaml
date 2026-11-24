@@ -1,0 +1,28 @@
+services:
+  pingu:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      PINGU_TOKEN: ${PINGU_TOKEN:?Copy .env.example to .env and set PINGU_TOKEN}
+      PINGU_ALLOW_PRIVATE: ${PINGU_ALLOW_PRIVATE:-false}
+      GOMAXPROCS: "2"
+    volumes:
+      - pingu-data:/data
+    sysctls:
+      net.ipv4.ping_group_range: "10001 10001"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    mem_limit: 128m
+    pids_limit: 64
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+volumes:
+  pingu-data:
